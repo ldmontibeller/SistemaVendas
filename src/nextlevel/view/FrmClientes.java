@@ -571,24 +571,24 @@ public class FrmClientes extends javax.swing.JFrame {
             ClientesDAO dao = new ClientesDAO();
             dao.cadastrarCliente(novoCliente);
 
-            //Checar se os campos de endereço não estão vazios e cadastrar também um endereço inicial
-            //Se o texto do campo Rua não for em branco
-//            if (!jTextFieldRua.getText().isBlank()) {
-//                Enderecos novoEndereco = new Enderecos();
-//                novoEndereco.setCep(jFormattedTextFieldCEP.getText());
-//                novoEndereco.setRua(jTextFieldRua.getText());
-//                novoEndereco.setNumero(Integer.parseInt(jFormattedTextFieldNo.getText()));
-//                novoEndereco.setComplemento(jTextFieldComp.getText());
-//                novoEndereco.setBairro(jTextFieldBairro.getText());
-//                novoEndereco.setCidade(jTextFieldCidade.getText());
-//                novoEndereco.setUF(jComboBoxUF.getSelectedItem().toString());
-//                
-//                //Cliente ainda não possui um id na aplicação pois é um novo cliente
-//                novoEndereco.setCliente(novoCliente);
-//
-//                EnderecosDAO enderecoDAO = new EnderecosDAO();
-//                enderecoDAO.cadastrarEndereco(novoEndereco);
-//            }
+//          Checar se os campos de endereço não estão vazios e 
+//          cadastrar também um endereço inicial se o texto do 
+//          campo Rua não for em branco
+            if (!jTextFieldRua.getText().isBlank()) {
+                Enderecos novoEndereco = new Enderecos();
+                novoEndereco.setCep(jFormattedTextFieldCEP.getText());
+                novoEndereco.setRua(jTextFieldRua.getText());
+                novoEndereco.setNumero(Integer.parseInt(jFormattedTextFieldNo.getText()));
+                novoEndereco.setComplemento(jTextFieldComp.getText());
+                novoEndereco.setBairro(jTextFieldBairro.getText());
+                novoEndereco.setCidade(jTextFieldCidade.getText());
+                novoEndereco.setUF(jComboBoxUF.getSelectedItem().toString());
+                
+                novoEndereco.setCliente(novoCliente);
+
+                EnderecosDAO enderecoDAO = new EnderecosDAO();
+                enderecoDAO.cadastrarEndereco(novoEndereco);
+            }
 
         } catch (Exception e) {
         }

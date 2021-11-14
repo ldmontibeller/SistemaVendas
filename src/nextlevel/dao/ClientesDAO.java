@@ -50,7 +50,6 @@ public class ClientesDAO {
             comando.setString(1,obj.getCpf());
             
             ResultSet rs = comando.executeQuery(); //Semelhante ao 4ºpasso
-            comando.close();
             
             //Percorrer todos os clientes que possuem o CPF comparado, mesmo
             //que hajam duplicatas utilizando um mesmo valor para CPF ele irá
@@ -60,8 +59,7 @@ public class ClientesDAO {
             }
             
             //Se chegar aqui o cadastro foi efetuado com sucesso
-            JOptionPane.showMessageDialog(null, "Cliente número "+
-                    obj.getId()+" cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
             
             return obj.getId();
 

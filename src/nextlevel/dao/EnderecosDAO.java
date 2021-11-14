@@ -31,7 +31,7 @@ public class EnderecosDAO {
         try {
             //2º passo: criar uma string de comando SQL
             String sql = "insert into tb_enderecos(cep, rua, numero, complemento, bairro, cidade, uf, id_cliente)"
-                    + "values (?,?,?,?,?,?,?)";
+                    + "values (?,?,?,?,?,?,?,?)";
 
             //3º passo: preparar o comando SQL para o driver
             PreparedStatement comando = conexao.prepareStatement(sql);
