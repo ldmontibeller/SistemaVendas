@@ -5,11 +5,11 @@
  */
 package nextlevel.view;
 
-import javax.swing.JOptionPane;
 import nextlevel.dao.ClientesDAO;
 import nextlevel.dao.EnderecosDAO;
 import nextlevel.model.Clientes;
 import nextlevel.model.Enderecos;
+import nextlevel.controller.Tabelas;
 
 /**
  *
@@ -66,11 +66,10 @@ public class FrmClientes extends javax.swing.JFrame {
         jButtonSalvarEndereco = new javax.swing.JButton();
         jButtonListarEnderecos = new javax.swing.JButton();
         jPanelConsultaClientes = new javax.swing.JPanel();
-        jLabelNomeCon = new javax.swing.JLabel();
-        jTextFieldNomeCon = new javax.swing.JTextField();
+        jTextFieldClientesPesquisa = new javax.swing.JTextField();
         jButtonPesquisarCon = new javax.swing.JButton();
         jScrollPaneCon = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
         jButtonNovo = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
@@ -377,10 +376,7 @@ public class FrmClientes extends javax.swing.JFrame {
 
         jPanelConsultaClientes.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabelNomeCon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabelNomeCon.setText("Nome:");
-
-        jTextFieldNomeCon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldClientesPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jButtonPesquisarCon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonPesquisarCon.setText("Pesquisar");
@@ -390,7 +386,7 @@ public class FrmClientes extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -398,7 +394,7 @@ public class FrmClientes extends javax.swing.JFrame {
                 "Identificador", "Nome", "Email", "CPF", "Telefone"
             }
         ));
-        jScrollPaneCon.setViewportView(jTable1);
+        jScrollPaneCon.setViewportView(jTableClientes);
 
         javax.swing.GroupLayout jPanelConsultaClientesLayout = new javax.swing.GroupLayout(jPanelConsultaClientes);
         jPanelConsultaClientes.setLayout(jPanelConsultaClientesLayout);
@@ -409,12 +405,11 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneCon)
                     .addGroup(jPanelConsultaClientesLayout.createSequentialGroup()
-                        .addComponent(jLabelNomeCon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldNomeCon, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jTextFieldClientesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonPesquisarCon)
-                        .addGap(0, 327, Short.MAX_VALUE)))
+                        .addGap(0, 379, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelConsultaClientesLayout.setVerticalGroup(
@@ -423,9 +418,7 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonPesquisarCon)
-                    .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelNomeCon)
-                        .addComponent(jTextFieldNomeCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextFieldClientesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPaneCon, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(151, Short.MAX_VALUE))
@@ -530,7 +523,9 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCidadeActionPerformed
 
     private void jButtonPesquisarConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarConActionPerformed
-        // TODO add your handling code here:
+        if (jTextFieldClientesPesquisa.getText().isBlank()){
+            Tabelas.tabelarClientes(jTableClientes);
+        }    
     }//GEN-LAST:event_jButtonPesquisarConActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
@@ -689,7 +684,6 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelNo;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JLabel jLabelNomeCon;
     private javax.swing.JLabel jLabelRua;
     private javax.swing.JLabel jLabelTel;
     private javax.swing.JLabel jLabelUF;
@@ -698,14 +692,14 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDadosPessoais;
     private javax.swing.JScrollPane jScrollPaneCon;
     private javax.swing.JTabbedPane jTabbedPaneClientes;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCidade;
+    private javax.swing.JTextField jTextFieldClientesPesquisa;
     private javax.swing.JTextField jTextFieldComp;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldNomeCon;
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 }
