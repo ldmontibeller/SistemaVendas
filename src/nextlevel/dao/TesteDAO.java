@@ -13,7 +13,19 @@ import nextlevel.model.Enderecos;
  */
 public class TesteDAO {
        public static void main(String[] args) {
-//         TESTE DO CADASTRAR ENDERECOS
+//      TESTE DO CADASTRAR CLIENTE
+        Clientes clienteTeste = new Clientes();
+        clienteTeste.setCpf("123.456.789-50 ");
+        clienteTeste.setEmail("email@email.com");
+        clienteTeste.setTelefone("(49) 9 9999-9999");
+        
+        System.out.println(clienteTeste.getId());
+        
+        ClientesDAO dao = new ClientesDAO();
+        dao.cadastrarCliente(clienteTeste);
+        
+        System.out.println(clienteTeste.getId());
+        
 //        Enderecos enderecoTeste = new Enderecos();
 //        
 //        enderecoTeste.setCep("88888-88");
@@ -27,19 +39,8 @@ public class TesteDAO {
 //        EnderecosDAO dao = new EnderecosDAO();
 //        dao.cadastrarEndereco(enderecoTeste);
 
-//        TESTE DO LISTAR ENDERECOS
-//        EnderecosDAO dao = new EnderecosDAO();
-//        dao.listarEnderecos();
-
-//        TESTE DE CADASTRAR CLIENTES E RETORNAR SEU ID
-          Clientes c = new Clientes();
-          c.setNome("Jose");
-          c.setCpf("555.555.555-55");
-          c.setEmail("email@email.com");
-          c.setTelefone("(55) 5 5555-5555");
-          
-          ClientesDAO dao = new ClientesDAO();
-          System.out.println(dao.cadastrarCliente(c));
-          
+//        TESTE DO LISTAR ENDERECO
+//          EnderecosDAO dao = new EnderecosDAO();
+//          dao.listarEnderecos();         
     }
 }
