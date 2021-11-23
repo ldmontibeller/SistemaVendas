@@ -11,6 +11,7 @@ import nextlevel.dao.ClientesDAO;
 import nextlevel.dao.EnderecosDAO;
 import nextlevel.model.Clientes;
 import nextlevel.model.Enderecos;
+import nextlevel.util.CamposComTexto;
 
 /**
  *
@@ -69,6 +70,7 @@ public class FrmClientes extends javax.swing.JFrame {
         jButtonNovo = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jButtonLiimparCampos = new javax.swing.JButton();
         jPanelConsultaClientes = new javax.swing.JPanel();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jButtonPesquisarCon = new javax.swing.JButton();
@@ -270,6 +272,14 @@ public class FrmClientes extends javax.swing.JFrame {
             }
         });
 
+        jButtonLiimparCampos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonLiimparCampos.setText("LIMPAR CAMPOS");
+        jButtonLiimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLiimparCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDadosPessoaisLayout = new javax.swing.GroupLayout(jPanelDadosPessoais);
         jPanelDadosPessoais.setLayout(jPanelDadosPessoaisLayout);
         jPanelDadosPessoaisLayout.setHorizontalGroup(
@@ -285,7 +295,7 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jLabelComp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldComp, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addComponent(jTextFieldComp, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
             .addGroup(jPanelDadosPessoaisLayout.createSequentialGroup()
                 .addGroup(jPanelDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,7 +325,7 @@ public class FrmClientes extends javax.swing.JFrame {
                         .addComponent(jLabelUF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 316, Short.MAX_VALUE))
             .addGroup(jPanelDadosPessoaisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,6 +356,8 @@ public class FrmClientes extends javax.swing.JFrame {
                         .addComponent(jButtonNovo)
                         .addGap(26, 26, 26)
                         .addComponent(jButtonAtualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonLiimparCampos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonExcluir)
                         .addGap(83, 83, 83))))
@@ -404,7 +416,8 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addGroup(jPanelDadosPessoaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNovo)
                     .addComponent(jButtonAtualizar)
-                    .addComponent(jButtonExcluir))
+                    .addComponent(jButtonExcluir)
+                    .addComponent(jButtonLiimparCampos))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -455,7 +468,7 @@ public class FrmClientes extends javax.swing.JFrame {
                         .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonPesquisarCon)
-                        .addGap(0, 379, Short.MAX_VALUE)))
+                        .addGap(0, 385, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelConsultaClientesLayout.setVerticalGroup(
@@ -600,6 +613,9 @@ public class FrmClientes extends javax.swing.JFrame {
 
             ClientesDAO dao = new ClientesDAO();
             dao.atualizarCliente(novoCliente);
+            
+            //Limpando os componentes
+            CamposComTexto.limpar(jPanelDadosPessoais);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
@@ -632,6 +648,9 @@ public class FrmClientes extends javax.swing.JFrame {
 
                 EnderecosDAO enderecoDAO = new EnderecosDAO();
                 enderecoDAO.cadastrarEndereco(novoEndereco);
+                
+                //Limpando os componentes
+                CamposComTexto.limpar(jPanelDadosPessoais);
             }
 
         } catch (Exception e) {
@@ -647,18 +666,21 @@ public class FrmClientes extends javax.swing.JFrame {
             ClientesDAO dao = new ClientesDAO();
             dao.excluirCliente(novoCliente);
 
-            //Limpando os componentes
-            jTextFieldId.setText("");
-            jTextFieldNome.setText("");
-            jFormattedTextFieldCPF.setText("");
-            jTextFieldEmail.setText("");
-            jFormattedTextFieldTel.setText("");
-            jFormattedTextFieldCEP.setText("");
-            jTextFieldRua.setText("");
-            jFormattedTextFieldNo.setText("");
-            jTextFieldComp.setText("");
-            jTextFieldBairro.setText("");
-            jTextFieldCidade.setText("");
+//            //Limpando os componentes
+//            jTextFieldId.setText("");
+//            jTextFieldNome.setText("");
+//            jFormattedTextFieldCPF.setText("");
+//            jTextFieldEmail.setText("");
+//            jFormattedTextFieldTel.setText("");
+//            jFormattedTextFieldCEP.setText("");
+//            jTextFieldRua.setText("");
+//            jFormattedTextFieldNo.setText("");
+//            jTextFieldComp.setText("");
+//            jTextFieldBairro.setText("");
+//            jTextFieldCidade.setText("");
+
+              //Limpando os componentes
+              CamposComTexto.limpar(jPanelDadosPessoais);
 
         } catch (Exception e) {
         }
@@ -707,6 +729,10 @@ public class FrmClientes extends javax.swing.JFrame {
         jTabbedPaneClientes.setSelectedIndex(0);
     }//GEN-LAST:event_jTableClientesMouseClicked
 
+    private void jButtonLiimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLiimparCamposActionPerformed
+        CamposComTexto.limpar(jPanelDadosPessoais);
+    }//GEN-LAST:event_jButtonLiimparCamposActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -746,6 +772,7 @@ public class FrmClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonLiimparCampos;
     private javax.swing.JButton jButtonListarEnderecos;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonPesquisarCon;
