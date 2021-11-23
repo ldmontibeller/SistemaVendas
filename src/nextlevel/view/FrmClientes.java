@@ -5,11 +5,12 @@
  */
 package nextlevel.view;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import nextlevel.dao.ClientesDAO;
 import nextlevel.dao.EnderecosDAO;
 import nextlevel.model.Clientes;
 import nextlevel.model.Enderecos;
-import nextlevel.controller.Tabelas;
 
 /**
  *
@@ -69,14 +70,14 @@ public class FrmClientes extends javax.swing.JFrame {
         jButtonAtualizar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jPanelConsultaClientes = new javax.swing.JPanel();
-        jTextFieldClientesPesquisa = new javax.swing.JTextField();
+        jTextFieldPesquisa = new javax.swing.JTextField();
         jButtonPesquisarCon = new javax.swing.JButton();
         jScrollPaneCon = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanelCadastroClientes.setBackground(new java.awt.Color(0, 102, 204));
+        jPanelCadastroClientes.setBackground(new java.awt.Color(0, 0, 153));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 204));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -417,7 +418,7 @@ public class FrmClientes extends javax.swing.JFrame {
 
         jPanelConsultaClientes.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextFieldClientesPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jButtonPesquisarCon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonPesquisarCon.setText("Pesquisar");
@@ -451,8 +452,7 @@ public class FrmClientes extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneCon)
                     .addGroup(jPanelConsultaClientesLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jTextFieldClientesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonPesquisarCon)
                         .addGap(0, 379, Short.MAX_VALUE)))
@@ -462,9 +462,9 @@ public class FrmClientes extends javax.swing.JFrame {
             jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelConsultaClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonPesquisarCon)
-                    .addComponent(jTextFieldClientesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldPesquisa)
+                    .addComponent(jButtonPesquisarCon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPaneCon, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(213, Short.MAX_VALUE))
@@ -527,9 +527,65 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCidadeActionPerformed
 
     private void jButtonPesquisarConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarConActionPerformed
-        if (jTextFieldClientesPesquisa.getText().isBlank()){
-            Tabelas.tabelarClientes(jTableClientes);
-        }    
+        if (jTextFieldPesquisa.getText().isBlank()) {
+            //1º passo: criar um objeto DAO para podermos utilizar seus métodos
+            ClientesDAO dao = new ClientesDAO();
+
+            //2º passo: criar uma lista de endereços através do método listar 
+            //enderecos do DAO
+            List<Clientes> lista = dao.listarClientes();
+
+            //3º passo: criar uma tabela do modelo padrão. Para isso pegamos o modelo
+            //do componente jTable da tela através do método getModel() e convertemos
+            //ele através de um casting para o modelo de tabela padrão.
+            DefaultTableModel tabela = (DefaultTableModel) jTableClientes.getModel();
+
+            //4º passo: setamos o número de colunas de nossa tabela em zero para limpar 
+            // e garantir que não existem nenhum dado pré existente.
+            tabela.setNumRows(0);
+
+            //5º passo: precisamos colocar os itens da lista na tabela. Para cada objeto
+            //do tipo Cliente na lista, nós adicionamos um novo objeto com os atributos
+            //do objeto endereco nos seus campos separados por vírgula.
+            for (Clientes cliente : lista) { //este é um exemplo de uso do for-each
+                tabela.addRow(new Object[]{ //este Object é um vetor/array
+                    cliente.getId(),
+                    cliente.getNome(),
+                    cliente.getCpf(),
+                    cliente.getEmail(),
+                    cliente.getTelefone()
+                });
+            }
+        } else {
+            //1º passo: criar um objeto DAO para podermos utilizar seus métodos
+            ClientesDAO dao = new ClientesDAO();
+
+            //2º passo: criar uma lista de endereços através do método listar 
+            //enderecos do DAO
+            List<Clientes> lista = dao.buscarCliente(jTextFieldPesquisa.getText());
+
+            //3º passo: criar uma tabela do modelo padrão. Para isso pegamos o modelo
+            //do componente jTable da tela através do método getModel() e convertemos
+            //ele através de um casting para o modelo de tabela padrão.
+            DefaultTableModel tabela = (DefaultTableModel) jTableClientes.getModel();
+
+            //4º passo: setamos o número de colunas de nossa tabela em zero para limpar 
+            // e garantir que não existem nenhum dado pré existente.
+            tabela.setNumRows(0);
+
+            //5º passo: precisamos colocar os itens da lista na tabela. Para cada objeto
+            //do tipo Cliente na lista, nós adicionamos um novo objeto com os atributos
+            //do objeto endereco nos seus campos separados por vírgula.
+            for (Clientes cliente : lista) { //este é um exemplo de uso do for-each
+                tabela.addRow(new Object[]{ //este Object é um vetor/array
+                    cliente.getId(),
+                    cliente.getNome(),
+                    cliente.getCpf(),
+                    cliente.getEmail(),
+                    cliente.getTelefone()
+                });
+            }
+        }
     }//GEN-LAST:event_jButtonPesquisarConActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
@@ -539,7 +595,7 @@ public class FrmClientes extends javax.swing.JFrame {
             novoCliente.setEmail(jTextFieldEmail.getText());
             novoCliente.setCpf(jFormattedTextFieldCPF.getText());
             novoCliente.setTelefone(jFormattedTextFieldTel.getText());
-            
+
             novoCliente.setId(Integer.parseInt(jTextFieldId.getText()));
 
             ClientesDAO dao = new ClientesDAO();
@@ -571,7 +627,7 @@ public class FrmClientes extends javax.swing.JFrame {
                 novoEndereco.setBairro(jTextFieldBairro.getText());
                 novoEndereco.setCidade(jTextFieldCidade.getText());
                 novoEndereco.setUF(jComboBoxUF.getSelectedItem().toString());
-                
+
                 novoEndereco.setCliente(novoCliente);
 
                 EnderecosDAO enderecoDAO = new EnderecosDAO();
@@ -583,14 +639,14 @@ public class FrmClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-          try {
+        try {
             Clientes novoCliente = new Clientes();
-            
+
             novoCliente.setId(Integer.parseInt(jTextFieldId.getText()));
 
             ClientesDAO dao = new ClientesDAO();
             dao.excluirCliente(novoCliente);
-            
+
             //Limpando os componentes
             jTextFieldId.setText("");
             jTextFieldNome.setText("");
@@ -603,7 +659,7 @@ public class FrmClientes extends javax.swing.JFrame {
             jTextFieldComp.setText("");
             jTextFieldBairro.setText("");
             jTextFieldCidade.setText("");
-            
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
@@ -646,7 +702,7 @@ public class FrmClientes extends javax.swing.JFrame {
         jFormattedTextFieldCPF.setText(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 2).toString());
         jTextFieldEmail.setText(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 3).toString());
         jFormattedTextFieldTel.setText(jTableClientes.getValueAt(jTableClientes.getSelectedRow(), 4).toString());
-        
+
         //Muda para o painel com índice zero (painel principal)
         jTabbedPaneClientes.setSelectedIndex(0);
     }//GEN-LAST:event_jTableClientesMouseClicked
@@ -722,11 +778,11 @@ public class FrmClientes extends javax.swing.JFrame {
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCidade;
-    private javax.swing.JTextField jTextFieldClientesPesquisa;
     private javax.swing.JTextField jTextFieldComp;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldPesquisa;
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 }

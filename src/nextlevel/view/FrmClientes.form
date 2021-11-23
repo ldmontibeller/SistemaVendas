@@ -46,7 +46,7 @@
     <Container class="javax.swing.JPanel" name="jPanelCadastroClientes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="66" red="0" type="rgb"/>
+          <Color blue="99" green="0" red="0" type="rgb"/>
         </Property>
       </Properties>
 
@@ -611,8 +611,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPaneCon" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                              <Component id="jTextFieldClientesPesquisa" min="-2" pref="404" max="-2" attributes="0"/>
+                              <Component id="jTextFieldPesquisa" min="-2" pref="404" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButtonPesquisarCon" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="379" max="32767" attributes="0"/>
@@ -626,9 +625,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButtonPesquisarCon" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldClientesPesquisa" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jTextFieldPesquisa" max="32767" attributes="0"/>
+                          <Component id="jButtonPesquisarCon" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPaneCon" min="-2" pref="112" max="-2" attributes="0"/>
@@ -638,7 +637,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTextFieldClientesPesquisa">
+            <Component class="javax.swing.JTextField" name="jTextFieldPesquisa">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="0"/>
