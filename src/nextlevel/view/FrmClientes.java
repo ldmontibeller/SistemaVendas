@@ -5,6 +5,7 @@
  */
 package nextlevel.view;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import nextlevel.dao.ClientesDAO;
@@ -432,6 +433,11 @@ public class FrmClientes extends javax.swing.JFrame {
         jPanelConsultaClientes.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextFieldPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPesquisaKeyPressed(evt);
+            }
+        });
 
         jButtonPesquisarCon.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonPesquisarCon.setText("Pesquisar");
@@ -613,7 +619,7 @@ public class FrmClientes extends javax.swing.JFrame {
 
             ClientesDAO dao = new ClientesDAO();
             dao.atualizarCliente(novoCliente);
-            
+
             //Limpando os componentes
             CamposComTexto.limpar(jPanelDadosPessoais);
         } catch (Exception e) {
@@ -648,7 +654,7 @@ public class FrmClientes extends javax.swing.JFrame {
 
                 EnderecosDAO enderecoDAO = new EnderecosDAO();
                 enderecoDAO.cadastrarEndereco(novoEndereco);
-                
+
                 //Limpando os componentes
                 CamposComTexto.limpar(jPanelDadosPessoais);
             }
@@ -678,9 +684,8 @@ public class FrmClientes extends javax.swing.JFrame {
 //            jTextFieldComp.setText("");
 //            jTextFieldBairro.setText("");
 //            jTextFieldCidade.setText("");
-
-              //Limpando os componentes
-              CamposComTexto.limpar(jPanelDadosPessoais);
+            //Limpando os componentes
+            CamposComTexto.limpar(jPanelDadosPessoais);
 
         } catch (Exception e) {
         }
@@ -732,6 +737,70 @@ public class FrmClientes extends javax.swing.JFrame {
     private void jButtonLiimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLiimparCamposActionPerformed
         CamposComTexto.limpar(jPanelDadosPessoais);
     }//GEN-LAST:event_jButtonLiimparCamposActionPerformed
+
+    private void jTextFieldPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jTextFieldPesquisa.getText().isBlank()) {
+                //1º passo: criar um objeto DAO para podermos utilizar seus métodos
+                ClientesDAO dao = new ClientesDAO();
+
+                //2º passo: criar uma lista de endereços através do método listar 
+                //enderecos do DAO
+                List<Clientes> lista = dao.listarClientes();
+
+                //3º passo: criar uma tabela do modelo padrão. Para isso pegamos o modelo
+                //do componente jTable da tela através do método getModel() e convertemos
+                //ele através de um casting para o modelo de tabela padrão.
+                DefaultTableModel tabela = (DefaultTableModel) jTableClientes.getModel();
+
+                //4º passo: setamos o número de colunas de nossa tabela em zero para limpar 
+                // e garantir que não existem nenhum dado pré existente.
+                tabela.setNumRows(0);
+
+                //5º passo: precisamos colocar os itens da lista na tabela. Para cada objeto
+                //do tipo Cliente na lista, nós adicionamos um novo objeto com os atributos
+                //do objeto endereco nos seus campos separados por vírgula.
+                for (Clientes cliente : lista) { //este é um exemplo de uso do for-each
+                    tabela.addRow(new Object[]{ //este Object é um vetor/array
+                        cliente.getId(),
+                        cliente.getNome(),
+                        cliente.getCpf(),
+                        cliente.getEmail(),
+                        cliente.getTelefone()
+                    });
+                }
+            } else {
+                //1º passo: criar um objeto DAO para podermos utilizar seus métodos
+                ClientesDAO dao = new ClientesDAO();
+
+                //2º passo: criar uma lista de endereços através do método listar 
+                //enderecos do DAO
+                List<Clientes> lista = dao.buscarCliente(jTextFieldPesquisa.getText());
+
+                //3º passo: criar uma tabela do modelo padrão. Para isso pegamos o modelo
+                //do componente jTable da tela através do método getModel() e convertemos
+                //ele através de um casting para o modelo de tabela padrão.
+                DefaultTableModel tabela = (DefaultTableModel) jTableClientes.getModel();
+
+                //4º passo: setamos o número de colunas de nossa tabela em zero para limpar 
+                // e garantir que não existem nenhum dado pré existente.
+                tabela.setNumRows(0);
+
+                //5º passo: precisamos colocar os itens da lista na tabela. Para cada objeto
+                //do tipo Cliente na lista, nós adicionamos um novo objeto com os atributos
+                //do objeto endereco nos seus campos separados por vírgula.
+                for (Clientes cliente : lista) { //este é um exemplo de uso do for-each
+                    tabela.addRow(new Object[]{ //este Object é um vetor/array
+                        cliente.getId(),
+                        cliente.getNome(),
+                        cliente.getCpf(),
+                        cliente.getEmail(),
+                        cliente.getTelefone()
+                    });
+                }
+            }
+        }
+    }//GEN-LAST:event_jTextFieldPesquisaKeyPressed
 
     /**
      * @param args the command line arguments
