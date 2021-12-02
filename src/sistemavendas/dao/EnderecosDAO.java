@@ -2,15 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package nextlevel.dao;
+package sistemavendas.dao;
 
-import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import nextlevel.jdbc.ConnectionFactory;
-import nextlevel.model.Enderecos;
+import sistemavendas.jdbc.ConnectionFactory;
+import sistemavendas.model.Enderecos;
 
 /**
  *

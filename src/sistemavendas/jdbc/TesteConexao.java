@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package nextlevel.jdbc;
+package sistemavendas.jdbc;
 
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +16,7 @@ public class TesteConexao {
         try {
             ConnectionFactory.getConnection();
             JOptionPane.showMessageDialog(null, "Conexão criada com sucesso.");
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }

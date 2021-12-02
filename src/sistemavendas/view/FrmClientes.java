@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nextlevel.view;
+package sistemavendas.view;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import nextlevel.dao.ClientesDAO;
-import nextlevel.dao.EnderecosDAO;
-import nextlevel.model.Clientes;
-import nextlevel.model.Enderecos;
-import nextlevel.util.CamposComTexto;
+import sistemavendas.dao.ClientesDAO;
+import sistemavendas.dao.EnderecosDAO;
+import sistemavendas.model.Clientes;
+import sistemavendas.model.Enderecos;
+import sistemavendas.util.CamposComTexto;
 
 /**
  *
